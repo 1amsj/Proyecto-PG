@@ -30,35 +30,44 @@ void Sky::drawSky() {
 		glfwSetWindowPos(window2, posX, posY);
 	}
 
-	while (!glfwWindowShouldClose(window2)) {
-        time += 0.01f;  // Simula el paso del tiempo
-        float r = 0.0f, g = 0.0f, b = 0.0f;
+	float dayProgress = 0.0f;  // Rango: 0.0 a 24.0
 
-        // Cálculo del progreso del día en un rango de 0 a 24
-        float dayProgress = fmod(time, 24.0f);
+    while (!glfwWindowShouldClose(window2)) {
+    dayProgress += 0.001f;  // Más lento
+    if (dayProgress >= 24.0f) {
+        dayProgress = 0.0f;
+    }
 
-        if (dayProgress < 6.0f) {
-            // Amanecer (0 - 6)
-            r = 1.0f;
-            g = 0.5f + 0.05f * dayProgress;
-            b = 0.2f + 0.1f * dayProgress;
-        } else if (dayProgress < 12.0f) {
-            // Día (6 - 12)
-            r = 0.53f;
-            g = 0.81f;
-            b = 0.98f;
-        } else if (dayProgress < 18.0f) {
-            // Atardecer (12 - 18)
-            r = 1.0f;
-            g = 0.4f - 0.04f * (dayProgress - 12.0f);
-            b = 0.2f - 0.03f * (dayProgress - 12.0f);
-        } else {
-            // Noche (18 - 24)
-            r = 0.05f;
-            g = 0.05f;
-            b = 0.2f;
-        }
+    float r = 0.0f, g = 0.0f, b = 0.0f;
 
-	glfwDestroyWindow(window2);
+    if (dayProgress < 6.0f) {
+        // Amanecer (0 - 6)
+        float t = dayProgress / 6.0f;
+        r = 0.8f + 0.2f * t;  // de 0.8 a 1.0
+        g = 0.4f + 0.3f * t;  // de 0.4 a 0.7
+        b = 0.2f + 0.4f * t;  // de 0.2 a 0.6
+    } else if (dayProgress < 12.0f) {
+        // Día (6 - 12)
+        r = 0.53f;
+        g = 0.81f;
+        b = 0.98f;
+    } else if (dayProgress < 18.0f) {
+        // Atardecer (12 - 18)
+        float t = (dayProgress - 12.0f) / 6.0f;
+        r = 1.0f;
+        g = 0.8f - 0.5f * t;  // de 0.8 a 0.3
+        b = 0.6f - 0.5f * t;  // de 0.6 a 0.1
+    } else {
+        // Noche (18 - 24)
+        float t = (dayProgress - 18.0f) / 6.0f;
+        r = 0.05f;
+        g = 0.05f + 0.05f * (1.0f - t);  // mantiene un pequeño degradado
+        b = 0.2f + 0.1f * (1.0f - t);
+    }
 
+    glClearColor(r, g, b, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glfwSwapBuffers(window2);
+    glfwPollEvents();
 }
