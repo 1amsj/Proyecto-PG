@@ -269,13 +269,16 @@ void mouse(int button, int state, int x, int y) {
 void keyboard(unsigned char key, int x, int y) {
     switch (key) {
         case 'w': case 'W':
-            wireframeMode = !wireframeMode;
-            break;
-        case '+':
             zoomFactor *= 0.9f;
             break;
-        case '-':
+        case 's': case 'S':
             zoomFactor *= 1.1f;
+            break;
+        case 'a': case 'A':
+            rotationAngle -= 5.0f; // Rota a la izquierda
+            break;
+        case 'd': case 'D':
+            rotationAngle += 5.0f; // Rota a la derecha
             break;
         case 'r': case 'R':
             rotationAngle = 0.0f;
@@ -285,6 +288,7 @@ void keyboard(unsigned char key, int x, int y) {
     }
     glutPostRedisplay();
 }
+
 
 
 void reshape(int width, int height) {
