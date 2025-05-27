@@ -8,6 +8,7 @@ class presentacion {
 public:
 	static void mouse_callback(GLFWwindow* window, int button, int action, int mods);
 	void drawButton();
+	void drawStars();
 
 };
 
