@@ -250,10 +250,63 @@ void mouseMotion(int x, int y) {
     glutPostRedisplay();
 }
 
+void keyboard(unsigned char key, int x, int y) {
 
+    switch (key) {
 
+        case 'w': case 'W':
 
+            zoomFactor *= 0.9f;
 
+            break;
+
+        case 's': case 'S':
+
+            zoomFactor *= 1.1f;
+
+            break;
+
+        case 'a': case 'A':
+
+            rotationAngle -= 5.0f; // Rota a la izquierda
+
+            break;
+
+        case 'd': case 'D':
+
+            rotationAngle += 5.0f; // Rota a la derecha
+
+            break;
+
+        case 'r': case 'R':
+
+            rotationAngle = 0.0f;
+
+            target = 2.0f;
+
+            zoomFactor = 1.0f;
+
+            break;
+
+    }
+
+    glutPostRedisplay();
+
+}
+
+void mouse(int button, int state, int x, int y) {
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+        glutMotionFunc(mouseMotion);
+    } else if (button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
+        glutMotionFunc(nullptr);
+    } else if (button == 3) { 
+        zoomFactor *= 0.9f;
+        glutPostRedisplay();
+    } else if (button == 4) { 
+        zoomFactor *= 1.1f;
+        glutPostRedisplay();
+    }
+}
 
 void reshape(int width, int height) {
     glViewport(0, 0, width, height);
@@ -265,13 +318,14 @@ int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
     glutInitWindowSize(1024, 768);
-    glutCreateWindow("Casa 3D - Visualización con Materiales Originales");
+    glutCreateWindow("Casa 3D");
 
     init();
 
     glutDisplayFunc(render);
     glutReshapeFunc(reshape);
-
+    glutMouseFunc(mouse);
+    glutKeyboardFunc(keyboard);
     glutMotionFunc(nullptr);
 
     glutMainLoop();
