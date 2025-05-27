@@ -5,7 +5,7 @@
 
 class Sky {
 public:
-	void drawButton();
+	void drawSky();
 };
 
 #endif
