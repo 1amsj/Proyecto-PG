@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "Sky.h"
+#include "Presentacion.h"
+
 
 // para cambiar el tamaño de la pantalla
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
@@ -20,7 +22,8 @@ int main() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+
 
 	GLFWwindow* window = glfwCreateWindow(1000, 800, "Ciclo Solar", NULL, NULL);
 	if (window == NULL) {
@@ -37,8 +40,11 @@ int main() {
 		return -1;
 	}
 
+	presentacion presenta;
+
 	glViewport(0, 0, 1000, 800);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwSetMouseButtonCallback(window, presentacion::mouse_callback);
 
 	//centrar la pantalla
 
@@ -54,15 +60,16 @@ int main() {
 
 	while (!glfwWindowShouldClose(window)) {
 		processInput(window);
-		glClearColor(0.6, 0.9, 1.0, 1.0);
+		glClearColor(0.05f, 0.05f, 0.2f, 0.8f);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		presenta.drawButton();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
 	}
 
-	glfwDestroyWindow(window);
 	glfwTerminate();
 	return 0;
 }
