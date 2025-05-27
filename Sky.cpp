@@ -30,7 +30,7 @@ void Sky::drawSky() {
 		glfwSetWindowPos(window2, posX, posY);
 	}
 
-	    while (!glfwWindowShouldClose(window2)) {
+	while (!glfwWindowShouldClose(window2)) {
         time += 0.01f;  // Simula el paso del tiempo
         float r = 0.0f, g = 0.0f, b = 0.0f;
 
