@@ -4,7 +4,8 @@
 #include <GLFW/glfw3.h>
 
 class Sky {
-
+public:
+	void drawButton();
 };
 
 #endif

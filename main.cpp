@@ -4,6 +4,7 @@
 #include "Sky.h"
 #include "Presentacion.h"
 
+bool ventana2 = false;
 
 // para cambiar el tamaño de la pantalla
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
@@ -40,6 +41,7 @@ int main() {
 		return -1;
 	}
 
+	Sky sky;
 	presentacion presenta;
 
 	glViewport(0, 0, 1000, 800);
@@ -68,6 +70,11 @@ int main() {
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
+	}
+
+	if (ventana2) {
+
+		sky.drawSky();
 	}
 
 	glfwTerminate();

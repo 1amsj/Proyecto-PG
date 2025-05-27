@@ -9,6 +9,7 @@ const float buttonY = -0.2f;
 const float buttonWidth = 0.4f;
 const float buttonHeight = 0.2f;
 
+extern bool ventana2; // Variable externa para controlar la ventana
 bool buttonClicked = false;
 
 void drawCircle(float cx, float cy, float radius, int segments) {
@@ -40,11 +41,14 @@ void presentacion::mouse_callback(GLFWwindow* window, int button, int action, in
             y >= buttonY && y <= buttonY + buttonHeight) {
             buttonClicked = !buttonClicked;  // Cambia color al hacer clic
             std::cout << "Bienvenido" << std::endl;
+            ventana2 = true;  // Cambia a la segunda ventana
+            glfwSetWindowShouldClose(window, true);
         }
+
+
     }
 
 }
-
 void presentacion::drawButton() {
     float radius = 0.05f;
     int segments = 20;
