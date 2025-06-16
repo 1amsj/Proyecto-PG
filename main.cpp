@@ -2,10 +2,10 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include "Sky.h"
+#include "Uso.h"
 #include "Presentacion.h"
 
-bool ventana2 = false;
-
+bool ventana2 = false, ventana3 = false;
 // para cambiar el tamaño de la pantalla
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
@@ -26,7 +26,7 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
 
-	GLFWwindow* window = glfwCreateWindow(1000, 800, "Ciclo Solar", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(1000, 800, "Bienvenido", NULL, NULL);
 	if (window == NULL) {
 		std::cout << "Se falló en la creación de la ventana de GLFW" << std::endl;
 		glfwTerminate();
@@ -40,7 +40,7 @@ int main() {
 		std::cout << "Se falló en la creación de la ventana de GLAD" << std::endl;
 		return -1;
 	}
-
+	Uso uso;
 	Sky sky;
 	presentacion presenta;
 
@@ -67,15 +67,17 @@ int main() {
 
 		presenta.drawButton();
 
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
 	}
 
-	if (ventana2) {
+	if (ventana2)
+		uso.drawWindow1();
 
+	if (ventana3)
 		sky.drawSky();
-	}
 
 	glfwTerminate();
 	return 0;
