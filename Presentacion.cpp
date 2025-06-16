@@ -3,6 +3,9 @@
 #include <iostream>
 #include <GLFW/glfw3.h>
 #include <cmath>
+#include <STB/stb_image.h>
+#include "stb_easy_font.h"
+
 
 // variables para los botones
 const float buttonX = -0.2f;
@@ -17,6 +20,8 @@ const float vertices = 2 * 3.1416 / (points * 2);
 // variables para la nueva ventana
 extern bool ventana2;
 bool buttonClicked = false;
+
+
 
 // dibujamos la estrella
 void drawStar(float centrox, float centroy, float radio, float r, float g, float b) {
@@ -61,6 +66,10 @@ void presentacion::drawStars() {
 
 }
 
+
+
+//dibujamos la luna
+
 void drawMoon(float cx, float cy, float radius, float r, float g, float b) {
     const int segments = 200;
 
@@ -77,7 +86,6 @@ void drawMoon(float cx, float cy, float radius, float r, float g, float b) {
 
     glEnd();
 }
-
 
 
 void drawCircle(float cx, float cy, float radius, int segments) {
@@ -117,6 +125,41 @@ void presentacion::mouse_callback(GLFWwindow* window, int button, int action, in
     }
 
 }
+
+void drawText(float x, float y, const char* text, float scale, GLFWwindow* window) {
+    char buffer[99999];
+    int num_quads = stb_easy_font_print(0, 0, (char*)text, NULL, buffer, sizeof(buffer));
+
+    int width, height;
+    glfwGetFramebufferSize(window, &width, &height);
+
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glOrtho(0, width, 0, height, -1, 1);
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    glTranslatef(x, y, 0.0f);
+    glScalef(scale, -scale, 1.0f);  // <- invierte verticalmente
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 16, buffer);
+    glDrawArrays(GL_QUADS, 0, num_quads * 4);
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+    glPopMatrix();
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+}
+
+
+
+
 void presentacion::drawButton() {
     float radius = 0.05f;
     int segments = 20;
@@ -129,12 +172,12 @@ void presentacion::drawButton() {
     drawStars();
     drawMoon(0.75f, 0.75f, 0.1f, 1.0f, 1.0f, 0.85f);
 
-
     if (buttonClicked)
         glColor4f(0.9f, 0.9f, 0.85f, 0.8f);
     else
         glColor4f(1.0f, 1.0f, 0.0f, 0.8f);
 
+    // Dibuja el botón (cuerpo)
     glBegin(GL_QUADS);
     glVertex2f(left, buttonY);
     glVertex2f(right, buttonY);
@@ -147,9 +190,29 @@ void presentacion::drawButton() {
     glVertex2f(buttonX, top);
     glEnd();
 
-    // Esquinas del botón redondeadas
+    // Esquinas redondeadas
     drawCircle(left, top, radius, segments);
     drawCircle(right, top, radius, segments);
     drawCircle(left, bottom, radius, segments);
     drawCircle(right, bottom, radius, segments);
+
+    // Dibuja el texto "Bienvenido" centrado arriba del botón
+    GLFWwindow* window = glfwGetCurrentContext();
+    int winWidth, winHeight;
+    glfwGetFramebufferSize(window, &winWidth, &winHeight);
+
+    // Tamaño de texto mayor (escala)
+    float scale = 10.0f;
+
+    const char* welcomeText = "Bienvenido";
+
+    // Estimación del ancho del texto en píxeles
+    float approxTextWidth = 9.0f * strlen(welcomeText) * scale;
+
+    // Coordenadas centradas
+    float centerX = (winWidth - approxTextWidth) / 2.0f + 190.0f;
+    float textY = winHeight - 300.0f;  // Ajusta este valor si quieres moverlo más abajo
+
+    drawText(centerX, textY, welcomeText, scale, window);
+
 }
