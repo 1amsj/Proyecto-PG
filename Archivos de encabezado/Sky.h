@@ -5,8 +5,7 @@
 
 class Sky {
 public:
-	void drawSky();
+	void drawSky(GLWwindow* window,, float timeOfDay);
 };
 
 #endif
-#pragma once

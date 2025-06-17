@@ -3,7 +3,7 @@
 
 #include <GLFW/glfw3.h>
 
-class Uso {	
+class Uso {
 public:
 	void drawWindow1();
 };
