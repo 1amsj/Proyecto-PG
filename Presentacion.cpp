@@ -75,7 +75,7 @@ void drawMoon(float cx, float cy, float radius, float r, float g, float b) {
 
     glColor3f(r, g, b);
     glBegin(GL_TRIANGLE_FAN);
-    glVertex2f(cx, cy); // Centro
+    glVertex2f(cx, cy);
 
     for (int i = 0; i <= segments; i++) {
         float angulo = 2.0f * 3.1415926f * i / segments;
@@ -90,7 +90,7 @@ void drawMoon(float cx, float cy, float radius, float r, float g, float b) {
 
 void drawCircle(float cx, float cy, float radius, int segments) {
     glBegin(GL_TRIANGLE_FAN);
-    glVertex2f(cx, cy); // centro
+    glVertex2f(cx, cy);
     for (int i = 0; i <= segments; ++i) {
         float angle = i * 2.0f * 3.1416 / segments;
         float x = cx + cos(angle) * radius;
@@ -108,7 +108,6 @@ void presentacion::mouse_callback(GLFWwindow* window, int button, int action, in
         int width, height;
         glfwGetWindowSize(window, &width, &height);
 
-        // Convertir a coordenadas NDC (-1 a 1)
         float x = (xpos / width) * 2.0f - 1.0f;
         float y = 1.0f - (ypos / height) * 2.0f;
 
@@ -143,7 +142,7 @@ void drawText(float x, float y, const char* text, float scale, GLFWwindow* windo
     glLoadIdentity();
 
     glTranslatef(x, y, 0.0f);
-    glScalef(scale, -scale, 1.0f);  // <- invierte verticalmente
+    glScalef(scale, -scale, 1.0f);
 
     glColor3f(1.0f, 1.0f, 1.0f);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -177,7 +176,7 @@ void presentacion::drawButton() {
     else
         glColor4f(1.0f, 1.0f, 0.0f, 0.8f);
 
-    // Dibuja el botón (cuerpo)
+    // Dibuja el botón 
     glBegin(GL_QUADS);
     glVertex2f(left, buttonY);
     glVertex2f(right, buttonY);
@@ -196,12 +195,11 @@ void presentacion::drawButton() {
     drawCircle(left, bottom, radius, segments);
     drawCircle(right, bottom, radius, segments);
 
-    // Dibuja el texto "Bienvenido" centrado arriba del botón
     GLFWwindow* window = glfwGetCurrentContext();
     int winWidth, winHeight;
     glfwGetFramebufferSize(window, &winWidth, &winHeight);
 
-    // Tamaño de texto mayor (escala)
+    // Tamaño de texto mayor 
     float scale = 10.0f;
 
     const char* welcomeText = "Bienvenido";
@@ -211,8 +209,14 @@ void presentacion::drawButton() {
 
     // Coordenadas centradas
     float centerX = (winWidth - approxTextWidth) / 2.0f + 190.0f;
-    float textY = winHeight - 300.0f;  // Ajusta este valor si quieres moverlo más abajo
+    float textY = winHeight - 300.0f;
 
     drawText(centerX, textY, welcomeText, scale, window);
 
 }
+
+
+
+
+
+

@@ -3,6 +3,47 @@
 #include "Uso.h"
 #include <iostream>
 #include <cmath>
+#include "stb_easy_font.h"
+#include <vector>
+#include <string>
+#include <sstream>
+
+float boxX = -0.9f, boxY = 0.8f, boxWidth = 1.8f, boxHeight = 1.5f, escalaX = 0.008f, escalaY = 0.012f, margenX = 0.03f, margenY = 0.05f;
+float maxWidth = (boxWidth - 2 * margenX);
+char buffer[10000];
+
+std::vector<std::string> lineSeparator(const char* texto, float maxWidth, float escalaX) {
+    std::vector<std::string> lineas;
+    std::istringstream stream(texto);
+    std::string palabra, linea;
+
+    while (stream >> palabra) {
+        std::string temp = linea.empty() ? palabra : linea + " " + palabra;
+
+        float ancho = temp.size() * 4.0f * escalaX;
+
+        if (ancho > maxWidth) {
+            if (!linea.empty()) {
+                lineas.push_back(linea);
+                linea = palabra;
+            }
+            else {
+                lineas.push_back(palabra);
+                linea.clear();
+            }
+        }
+        else {
+            linea = temp;
+        }
+    }
+
+    if (!linea.empty()) {
+        lineas.push_back(linea);
+    }
+
+    return lineas;
+}
+
 
 void drawCircle(float x, float y, float radius, float r, float g, float b) {
     glColor3f(r, g, b);
@@ -26,6 +67,32 @@ void drawStars() {
     }
     glEnd();
 }
+
+void drawTransparentBoxWithBorder(float x, float y, float width, float height, float r, float g, float b, float alpha) {
+    // Fondo transparente
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glColor4f(r, g, b, alpha);
+    glBegin(GL_QUADS);
+    glVertex2f(x, y);
+    glVertex2f(x + width, y);
+    glVertex2f(x + width, y - height);
+    glVertex2f(x, y - height);
+    glEnd();
+
+    // Borde blanco visible
+    glLineWidth(2.0f);
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(x, y);
+    glVertex2f(x + width, y);
+    glVertex2f(x + width, y - height);
+    glVertex2f(x, y - height);
+    glEnd();
+
+    glDisable(GL_BLEND);
+}
+
 
 void Uso::drawWindow1() {
     GLFWwindow* window2 = glfwCreateWindow(1000, 800, "Ciclo Solar", NULL, NULL);
@@ -106,6 +173,38 @@ void Uso::drawWindow1() {
         if (dayProgress >= 18.0f && dayProgress < 24.0f) {
             drawStars();
         }
+
+
+        drawTransparentBoxWithBorder(boxX, boxY, boxWidth, boxHeight, 0.1f, 0.1f, 0.1f, 0.6f);
+
+        const char* texto = "Hola "
+            "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
+            "ah?";
+
+
+        // Obtener líneas ajustadas
+        std::vector<std::string> lineas = lineSeparator(texto, maxWidth, escalaX);
+
+        // Dibujar líneas
+        glPushMatrix();
+        glTranslatef(boxX + 0.03f, boxY - 0.15f, 0.0f);
+        glScalef(0.006f, -0.009f, 1.0f);
+
+
+        float offsetY = 0.0f;
+        for (int i = 0; i < lineas.size(); ++i) {
+            int cantidad = stb_easy_font_print(0.0f, offsetY, (char*)lineas[i].c_str(), NULL, buffer, sizeof(buffer));
+            glColor3f(1.0f, 1.0f, 1.0f);
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glVertexPointer(2, GL_FLOAT, 16, buffer);
+            glDrawArrays(GL_QUADS, 0, cantidad * 4);
+            glDisableClientState(GL_VERTEX_ARRAY);
+            offsetY += 12.0f;
+        }
+        glPopMatrix();
+
+
 
         glfwSwapBuffers(window2);
         glfwPollEvents();
