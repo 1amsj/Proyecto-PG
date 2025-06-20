@@ -5,7 +5,8 @@
 #include "Uso.h"
 #include "Presentacion.h"
 
-bool ventana2 = false, ventana3 = false;
+bool ventana2 = false;
+GLFWwindow* window;
 // para cambiar el tamaño de la pantalla
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
@@ -19,6 +20,7 @@ void processInput(GLFWwindow* window) {
 }
 
 
+
 int main() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -26,7 +28,7 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 
 
-	GLFWwindow* window = glfwCreateWindow(1000, 800, "Bienvenido", NULL, NULL);
+	window = glfwCreateWindow(1000, 800, "Bienvenido", NULL, NULL);
 	if (window == NULL) {
 		std::cout << "Se falló en la creación de la ventana de GLFW" << std::endl;
 		glfwTerminate();
@@ -72,12 +74,9 @@ int main() {
 		glfwPollEvents();
 
 	}
-
 	if (ventana2)
 		uso.drawWindow1();
 
-	if (ventana3)
-		sky.drawSky();
 
 	glfwTerminate();
 	return 0;
