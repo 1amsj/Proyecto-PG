@@ -20,15 +20,22 @@ To compile it, you must manually configure the build environment (e.g. using g++
 
 To clone the repository, we go to visual studio community, and we choose clone a repository, we put the url and then we click on clone.
 
+We go to the cloned project files and copy the main.cpp, presentation.cpp, usage.cpp, sky.cpp and soon.cp files that are outside and all the .h files that are in the header files folder. After copying them we go to the folder of the project previously created and we go to a folder with the same name of the project and we paste all the files. Then, we open visual studio community and we go to our main. We can see that the main is no longer empty, but it is still not possible to compile it.
 
+We go to the source files folder and choose the option to add an element exists and choose all the .cpp files except the main, then we go to the header files folder, choose the option to add an element exists and choose all the .h files.
 
+After making sure that it does not give error, we can compile it and the result will be shown to us.
 
-
+For more information we attach a link drive of how to clone it step by step by means of images.
 
 
 ## LINK
 
+**Link drive:** https://drive.google.com/drive/folders/1jewvMVS29VRik2pXrx_NTl4EzWHoP-zk?usp=sharing
+
 **Video link (spanish):** https://youtu.be/QEpxqycmJ6E
+
+**Assimp library:** https://versaweb.dl.sourceforge.net/project/assimp/assimp-3.1/assimp-3.1.1_no_test_models.zip?viasf=1
 
 **GLFW library:** https://www.glfw.org/download.html
 
