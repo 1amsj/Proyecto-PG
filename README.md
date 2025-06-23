@@ -31,8 +31,6 @@ For more information we attach a link drive of how to clone it step by step by m
 
 ## LINK
 
-**Link drive:** https://drive.google.com/drive/folders/1jewvMVS29VRik2pXrx_NTl4EzWHoP-zk?usp=sharing
-
 **Video link (spanish):** https://youtu.be/QEpxqycmJ6E
 
 **Assimp library:** https://versaweb.dl.sourceforge.net/project/assimp/assimp-3.1/assimp-3.1.1_no_test_models.zip?viasf=1
