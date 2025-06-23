@@ -78,7 +78,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 The authors of this project are universitary students in their third year of computer engineering at the National University of Engineering (UNI).
 
 ### Github users
-- Kenny Campbell M. (Knnyx3)
-- Ashley Vivas M. (AshleyVivas)
-- Jeshua Torres O. (Aar4on)
-- Slilma Juárez R. (1amsj)
+- Kenny Campbell M. (Knnyx3) https://github.com/Knnyx3
+- Ashley Vivas M. (AshleyVivas) https://github.com/Ashleyvivas
+- Jeshua Torres O. (Aar4on) https://github.com/Aar4on
+- Slilma Juárez R. (1amsj) https://github.com/1amsj
