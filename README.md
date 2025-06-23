@@ -15,15 +15,19 @@ OpenGL, 3D simulation, lighting, solar cycle, student project.
 
 ## Steps to clone the repository
 
-As a requirement you must have previously installed libraries such as glfw, glad and glut. This project does not contain a .sln file (Visual Studio Solution).
+As a requirement you must have previously installed libraries such as glfw,assimp, glad and glut. This project does not contain a .sln file (Visual Studio Solution), therefore you must create a project with these libraries.
 To compile it, you must manually configure the build environment (e.g. using g++, CMake, or your preferred environment), making sure to include and link the required libraries (glfw, glad, glut) correctly.
-To clone the repository you put the following command in the terminal:
 
-`git clone https://github.com/1amsj/Proyecto-PG.git`
+To clone the repository, we go to visual studio community, and we choose clone a repository, we put the url and then we click on clone.
+
+
+
+
+
 
 ## LINK
 
-**Repository link:** https://github.com/1amsj/Proyecto-PG.git
+**Video link (spanish):** https://youtu.be/QEpxqycmJ6E
 
 **GLFW library:** https://www.glfw.org/download.html
 
